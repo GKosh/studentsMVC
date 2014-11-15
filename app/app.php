@@ -1,10 +1,19 @@
 <?php 
 /**
+* Application boot class
 * app.php 
 * 
-* Основной контролера. Обрабатывает УРЛ, загружате котроллеры и методы
+* @property array $configs app onject propery contain configurations form config.php file.
+* @property array $Conf static clone of $configs.
+* @property array $request Contain request properties and string of request itself
+* @property string/object  Before loadController function is called contain name of requested controller. After loadController function is invoked $controller contains instance of Controller object.
+* @property string $method Required method(action).
+* @property array $params Array of required URL parameters.
+* 
 * @vertion 1.0
+* @author G.Kosh
 */
+
 class app 
 {
 	public $configs;
@@ -36,6 +45,11 @@ class app
 		$this->loadController();
 	}
 	
+	 /**
+     * Provide base URL of application.
+     * 
+     * @return Base URL string
+     */
 	public static function getURL(){
 			$pageURL = 'http';
 		if ((isset($_SERVER["HTTPS"])) && (strtolower($_SERVER["HTTPS"]) == "on")) $pageURL .= "s"; 
@@ -48,7 +62,11 @@ class app
 		return $pageURL;
 	}
 
-	
+	/**
+     * Handles request and call required controller with set of parameters from request.
+     * @return Response the resulting response
+     * 
+     */
 	public function parseRequest(){
 		
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
@@ -81,14 +99,23 @@ class app
 	
 	}
 	
+	/**
+     *  @return controller
+     */
 	public function getController(){
 		return $this->controller;
 	}
 	
+	/**
+     *  @return string method 
+     */
 	public function getMethod(){
 		return $this->method;
 	}
 	
+	/**
+     *  @return array reuested parameters or false
+     */
 	public function getParams(){
 		if (!empty($this->params)){
 			return $this->params;
@@ -96,7 +123,10 @@ class app
 			return false;
 		}
 	}
-// Загрузка контролера	
+	/**
+    * Controller loader
+	* Create controller instance adn load required method. Pass required parameters if defined
+    */
 	public function loadController($controller = null,$method = null,$params = null){
 	    if ((empty($controller))||(empty($method))){
 			$method = $this->getMethod();
@@ -109,8 +139,9 @@ class app
 	
 		if (file_exists($controllerPath)){
 			require_once($controllerPath);
-		
-		// Запуск метода и передача параметров
+		/**
+		* Запуск метода и передача параметров
+		*/
 			if (!empty($params)) $this->request['params'] = $params;
 			$controller = "\app\controller\\" . ucfirst($controller); 
 				$this->controller = new $controller();
@@ -131,7 +162,10 @@ class app
 		return false;
 	}
 
-	// log function 
+	/**
+     *  Log file
+	 *  @param string message Log message to be placed in log file.
+     */
 	public function logMessage($message){
 		file_put_contents( $this->configs["logPath"] . "log.txt", $message. "\n",FILE_APPEND);
 	}

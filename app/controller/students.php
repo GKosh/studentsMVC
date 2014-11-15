@@ -1,4 +1,15 @@
 <?php
+/**
+* Student controller class 
+* students.php
+* 
+*
+*  Extendds general controller class with particular actions(methods). Contain actions logic, operate with models and views.
+* 
+* 
+* @vertion 1.0
+* @author G.Kosh
+*/
 
 namespace app\controller;
 use app;
@@ -8,7 +19,10 @@ class Students extends app\Controller
 	function __construct(){
 		$this->setModel();
 	}
-	
+	 /**
+     * Index action
+     * Set title, get students list and set view
+     */
 	public function index(){
 		
 		
@@ -19,7 +33,10 @@ class Students extends app\Controller
 		$this->setView();
 		
 	}
-	
+	/**
+     * Add action
+     * Add requested student to the database via students module
+     */
 	public function add(){
 	
 	$studentData['name'] = $this->request['name'];
@@ -36,6 +53,11 @@ class Students extends app\Controller
 	$this->setView('table');
 	}
 	
+	
+	/**
+     * Delete action
+     * Delete requested student from the database via students module
+     */
 	public function delete(){
 		
 		
@@ -48,6 +70,10 @@ class Students extends app\Controller
 	$this->setView('table');
 	}
 	
+	/**
+     * Update action
+     * Update requested students to the database via students module
+     */
 	public function update(){
 	$studentData['id'] = $this->request['id'];
 	$studentData['name'] = $this->request['name'];

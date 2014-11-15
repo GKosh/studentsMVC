@@ -1,4 +1,3 @@
-
 <?php
 /**
 * index.php - точка входа
@@ -15,8 +14,15 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
 
-
+/*** 
+* Configuration file required
+* config.php
+*/
 require_once(__DIR__ .DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "config.php");
+/*** 
+* Boot file required
+* app.php
+*/
 require_once(__DIR__ .DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "app.php");
 
 (new app($configs));

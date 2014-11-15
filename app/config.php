@@ -1,10 +1,12 @@
 <?php 
-
 /**
+* Configuration file 
 * config.php 
 * 
-* конфигурации приложения
+* @var array $configs Array with main application configurations: database, URL, directories  
+* 
 * @vertion 1.0
+* @author G.Kosh
 */
 
 define("APP_PATH", dirname(realpath(__FILE__)). DIRECTORY_SEPARATOR);

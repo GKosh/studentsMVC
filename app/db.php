@@ -1,14 +1,26 @@
 <?php
 /**
 * db.php 
+*  Database class
 * 
-* Класс БД 
-* Использует PDO 
+*
+* @property string $host Host name. In constructor value is taken from configurations.
+* @property string $user Username. Value is taken from configurations.
+* @property string $pass Db Access password
+* @property string $dbname  Data base name.
+* @property string $dsn 
+* @property array $dbh PDO object.
+* @property array $error
+* @property array $stmt Query statement.
+* @property array $ooptions Array of PDO options.
+*
+*
 * @vertion 1.0
+* @author G.Kosh
 */
 if(!defined("APP_PATH")) die;  
 
-// PDO Database model classes
+
 class Database
 {
 	private $host;
@@ -26,6 +38,14 @@ class Database
 	);
 	
 	
+	 /**
+     * Constructor
+     * 
+	 * Create PDO object. Read configurations
+	 *
+	 * @throw error if DB is not connected
+	 * @return error if DB is not connected
+	 */
 	public function __construct(){
 
 	$this->host = \app::$Conf["DB_HOST"];
@@ -43,6 +63,11 @@ class Database
 		}
 	}
 	
+	/**
+     * Query handler
+     * 
+	 * Wrap PDO query function
+	 */
 	public function query($query){
 		if (empty($this->dsn)){
 		
@@ -51,6 +76,13 @@ class Database
 		}
 	}
 	
+	/**
+     * Bind PDO parameters with values and detect type
+     * 
+	 * @param string $param parameter name
+	 * @param mixed $value Parameter value
+	 * @param string $type Parameter type
+	 */
 	public function bind($param, $value, $type = null){
     if (is_null($type)) {
         switch (true) {
@@ -69,7 +101,12 @@ class Database
     }
     $this->stmt->bindValue($param, $value, $type);
 	}
-
+	/**
+     * Set of PDO wrapping functions
+     * 
+	 * Provide shortened access to PDO objects and functions 
+	 * Example: $db->execute instead of $db->stmt->execute();
+	 */
 	public function execute(){
     return $this->stmt->execute();
 	}

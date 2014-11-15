@@ -1,4 +1,15 @@
-
+<?php
+/**
+* Default layout 
+* layout.php
+* 
+* Layout use variables provided by controller and output header, content and footer in html format 
+*
+*
+* @vertion 1.0
+* @author G.Kosh
+*/
+?>
 
 
 <!DOCTYPE html>
@@ -6,6 +17,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><?php
+
 echo $title;
 ?></title>
 <link rel="stylesheet" type="text/css" href="<?= $CSS; ?>" media="all">

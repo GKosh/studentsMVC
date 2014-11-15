@@ -1,3 +1,16 @@
+<?php
+/**
+* Default view 
+* view.php
+* 
+* View use variables provided by controller and output html 
+*
+*
+* @vertion 1.0
+* @author G.Kosh
+*/
+?>
+
  <div id="content">
 <h2><?php echo $title; ?></h2>
 <div id="table_container">

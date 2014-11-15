@@ -1,10 +1,15 @@
 <?php
 
 /**
-* students.php 
+* Student model class 
+* students.php
 * 
-*  
+*
+* Studen class provide CRUD functions for the model
+* 
+* 
 * @vertion 1.0
+* @author G.Kosh
 */
 
 namespace app\model;

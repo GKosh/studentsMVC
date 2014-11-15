@@ -1,11 +1,21 @@
 <?php
 /**
-* controller.php 
+* Controller class 
+* controller.php
+* General controller class. Contain general controllers methods and properties.
+*
+*
+* @property string $default_layout Provide default_layout name if not specified in configurations.
+* @property string $default_view Provide default_view if not specified in configurations.
+* @property array $model contain required model name.
+* @property array $data Contain variables to be passed to view.
+* @property array $request Contain request properties and string of request itself
 * 
-* Класс контроллера 
-*  
+* 
 * @vertion 1.0
+* @author G.Kosh
 */
+
 namespace app;
 
 if(!defined("APP_PATH")) die;  
@@ -23,6 +33,10 @@ class Controller
 			
 	}
 	
+	 /**
+     * Include layout and set view parameters
+     * When ajax request controller view without layout is included
+     */
 	public function setView($view_name = ""){
 	
 	if(empty($view_name)){
@@ -59,8 +73,15 @@ class Controller
 	}
 	}
 	
+	/**
+     * Include model by name 
+	 *
+	 * Include required model or custom model if model_name not null 
+	 * @param string @model_name Optional.
+     */
 	
-	public function setModel(){
+	
+	public function setModel($model_name=null){
 		if(empty($model_name)){
 		
 		$model_name = (new \ReflectionClass($this))->getShortName();
